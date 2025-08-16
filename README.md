@@ -2,6 +2,8 @@
 
 A modern web application that transforms meeting transcripts into AI-powered summaries and shares them via email.
 
+🌐 **Live Demo:** [http://67.220.85.157:6216](http://67.220.85.157:6216)
+
 ## Features
 
 - 📄 **Upload or paste** meeting transcripts
