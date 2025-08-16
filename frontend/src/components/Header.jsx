@@ -1,64 +1,50 @@
-import { FileText, Brain, Zap } from 'lucide-react';
+import { FileText, Brain, Zap, Menu, Bot, Sparkles } from 'lucide-react';
 import ConnectionStatus from './ConnectionStatus';
 
 /**
- * Header component with clean DaisyUI styling
+ * Clean and modern Header component
  */
 const Header = () => {
   return (
-    <div className="navbar bg-primary text-primary-content shadow-xl">
-      <div className="container mx-auto">
-        <div className="flex-1">
-          <div className="avatar placeholder mr-3">
-            <div className="bg-primary-focus text-primary-content rounded-full w-12 h-12">
-              <FileText className="w-6 h-6" />
+    <header className="navbar bg-base-100 border-b border-base-300 shadow-sm sticky top-0 z-50 backdrop-blur-sm">
+      <div className="container mx-auto px-4">
+        <div className="flex items-center justify-between w-full">
+          {/* Logo and Title - Left Side */}
+          <div className="flex items-center gap-3">
+            <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-primary/10 border border-primary/20">
+              <Bot className="w-5 h-5 text-primary" />
+            </div>
+            <div className="flex flex-col">
+              <div className="flex items-center gap-2">
+                <h1 className="text-lg md:text-xl font-bold text-base-content">
+                  AI Summarizer
+                </h1>
+                <div className="badge badge-primary badge-xs">
+                  <Sparkles className="w-2 h-2" />
+                </div>
+              </div>
+              <div className="hidden sm:flex items-center gap-2 text-xs text-base-content/60">
+                <span>Meeting notes made simple</span>
+              </div>
             </div>
           </div>
-          <div>
-            <h1 className="text-2xl font-bold flex items-center gap-2">
-              AI Meeting Summarizer
-              <div className="badge badge-accent badge-sm">
-                <Brain className="w-3 h-3 mr-1" />
-                AI
-              </div>
-            </h1>
-            <div className="hidden sm:block text-primary-content/80">
-              <ConnectionStatus />
-            </div>
-          </div>
-        </div>
-        <div className="flex-none">
-          <div className="dropdown dropdown-end">
-            <div
-              tabIndex={0}
-              role="button"
-              className="btn btn-ghost btn-circle"
-            >
-              <div className="indicator">
-                <Zap className="w-5 h-5" />
-                <span className="badge badge-xs badge-secondary indicator-item"></span>
-              </div>
-            </div>
-            <div
-              tabIndex={0}
-              className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
-            >
-              <div className="menu-title">
-                <span className="text-base-content">Powered by</span>
-              </div>
-              <ul>
-                <li>
-                  <a className="text-base-content">Groq AI - Fast Inference</a>
-                </li>
-                <li>
-                  <a className="text-base-content">Resend - Email Delivery</a>
-                </li>
-              </ul>
+
+          {/* Right Section - Status & Menu */}
+          <div className="flex items-center gap-4">
+            {/* Connection Status */}
+            <ConnectionStatus />
+
+            {/* Status Indicator */}
+            <div className="flex items-center gap-2 bg-success/10 border border-success/20 px-3 py-1.5 rounded-full">
+              <div className="w-2 h-2 bg-success rounded-full animate-pulse"></div>
+              <span className="text-xs font-medium text-success hidden sm:inline">
+                Live
+              </span>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </header>
   );
 };
 

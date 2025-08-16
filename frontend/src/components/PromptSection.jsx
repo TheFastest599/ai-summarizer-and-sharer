@@ -1,118 +1,111 @@
-import { Wand2, Loader2, Sparkles, Brain } from 'lucide-react';
+import { useAppContext } from '../context/AppContext';
 
 /**
- * Enhanced PromptSection component with DaisyUI styling
+ * Modern PromptSection component with clean design
  */
-const PromptSection = ({
-  customPrompt,
-  onPromptChange,
-  onGenerateSummary,
-  isGenerating,
-  transcript,
-}) => {
+const PromptSection = () => {
+  const {
+    customPrompt,
+    setCustomPrompt,
+    generateSummary,
+    isGenerating,
+    transcript,
+  } = useAppContext();
+
+  const handleGenerateSummary = () => {
+    generateSummary(transcript, customPrompt);
+  };
+
   const promptExamples = [
-    'Summarize in bullet points with action items',
+    'Create bullet points with action items',
     'Focus on key decisions and next steps',
-    'Create executive summary with highlights',
-    'List all action items with owners',
+    'Executive summary with highlights',
+    'List action items with owners',
     'Extract main topics and outcomes',
   ];
 
   return (
-    <div className="card bg-base-100 shadow-xl border border-base-300">
-      <div className="card-body">
-        <h2 className="card-title text-2xl mb-4">
-          <div className="badge badge-secondary badge-lg">
-            <Wand2 className="w-4 h-4 mr-1" />
-            Step 2
+    <div className="w-full">
+      {/* Header */}
+      <div className="mb-6">
+        <div className="flex items-center gap-3 mb-2">
+          <div className="flex items-center justify-center w-8 h-8 rounded-full bg-secondary text-secondary-content text-sm font-bold">
+            2
           </div>
-          Customize AI Instructions
-        </h2>
+          <h2 className="text-2xl font-bold text-base-content">
+            Customize AI Instructions
+          </h2>
+        </div>
+        <p className="text-base-content/70 ml-11">
+          Tell the AI how you want your transcript summarized
+        </p>
+      </div>
 
-        <div className="form-control mb-4">
-          <label className="label">
-            <span className="label-text font-semibold">
-              Custom prompt (optional)
-            </span>
-            <span className="label-text-alt">
-              <Sparkles className="w-3 h-3 inline mr-1" />
-              AI Enhancement
-            </span>
+      {/* Content */}
+      <div className="bg-base-100 rounded-lg border border-base-300 p-6 space-y-6">
+        {/* Quick Examples */}
+        <div>
+          <label className="block text-sm font-medium text-base-content mb-3">
+            Quick Templates
+          </label>
+          <div className="flex flex-wrap gap-2">
+            {promptExamples.map((example, index) => (
+              <button
+                key={index}
+                onClick={() => setCustomPrompt(example)}
+                className="btn btn-sm btn-outline hover:btn-primary transition-colors"
+              >
+                {example}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Custom Prompt */}
+        <div>
+          <label className="block text-sm font-medium text-base-content mb-3">
+            Custom Instructions (Optional)
           </label>
           <textarea
-            className="textarea textarea-bordered textarea-lg h-24 text-sm"
-            placeholder="Tell the AI how to summarize your meeting..."
+            className="textarea textarea-bordered w-full h-24 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+            placeholder="Tell the AI how to summarize your meeting...
+
+Examples:
+• Focus on technical decisions and implementation details
+• Create a summary for executive presentation
+• Extract all action items with deadlines and owners"
             value={customPrompt}
-            onChange={e => onPromptChange(e.target.value)}
+            onChange={e => setCustomPrompt(e.target.value)}
           />
-          <label className="label">
-            <span className="label-text-alt">
-              Leave empty for default smart summarization
-            </span>
-          </label>
-        </div>
-
-        <div className="collapse collapse-arrow bg-base-200 mb-4">
-          <input type="checkbox" />
-          <div className="collapse-title text-sm font-medium">
-            💡 Quick Prompt Examples
-          </div>
-          <div className="collapse-content">
-            <div className="space-y-2">
-              {promptExamples.map((example, index) => (
-                <div
-                  key={index}
-                  className="badge badge-outline cursor-pointer hover:badge-primary"
-                  onClick={() => onPromptChange(example)}
-                >
-                  {example}
-                </div>
-              ))}
-            </div>
+          <div className="text-xs text-base-content/70 mt-2">
+            Leave empty for default smart summarization
           </div>
         </div>
 
-        <div className="card-actions justify-end">
+        {/* Generate Button */}
+        <div className="pt-4 border-t border-base-300">
           <button
-            className={`btn btn-primary btn-lg ${
-              isGenerating ? 'btn-disabled' : ''
-            }`}
-            onClick={onGenerateSummary}
+            onClick={handleGenerateSummary}
             disabled={!transcript.trim() || isGenerating}
+            className={`btn btn-primary btn-lg w-full ${
+              isGenerating ? 'btn-ghost' : ''
+            }`}
           >
             {isGenerating ? (
-              <>
-                <Loader2 className="w-5 h-5 animate-spin" />
-                <span className="loading loading-dots loading-sm"></span>
-                Generating...
-              </>
+              <span className="loading loading-spinner loading-lg">
+                Generating Summary...
+              </span>
             ) : (
-              <>
-                <Brain className="w-5 h-5" />
-                Generate AI Summary
-              </>
+              <span>Generate AI Summary</span>
             )}
           </button>
-        </div>
 
-        {!transcript && (
-          <div className="alert alert-warning mt-4">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="stroke-current shrink-0 h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.996-.833-2.766 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"
-              />
-            </svg>
-            <span>Please upload or paste a transcript first</span>
-          </div>
-        )}
+          {!transcript.trim() && (
+            <p className="text-center text-sm text-base-content/50 mt-2">
+              Upload a transcript first to generate summary
+            </p>
+          )}
+        </div>
       </div>
     </div>
   );

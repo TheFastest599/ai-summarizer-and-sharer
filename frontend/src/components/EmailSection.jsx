@@ -1,17 +1,24 @@
 import { Mail, Send, Loader2, Users, MessageSquare } from 'lucide-react';
+import { useAppContext } from '../context/AppContext';
 
 /**
- * Enhanced EmailSection component with DaisyUI styling
+ * Modern EmailSection component with clean design
  */
-const EmailSection = ({
-  summary,
-  subject,
-  onSubjectChange,
-  recipients,
-  onRecipientsChange,
-  onSendEmail,
-  isSending,
-}) => {
+const EmailSection = () => {
+  const {
+    summary,
+    subject,
+    setSubject,
+    recipients,
+    setRecipients,
+    sendEmail,
+    isSending,
+  } = useAppContext();
+
+  const handleSendEmail = () => {
+    sendEmail(summary);
+  };
+
   if (!summary) return null;
 
   const emailCount = recipients
@@ -19,138 +26,105 @@ const EmailSection = ({
     : 0;
 
   return (
-    <div className="card bg-base-100 shadow-xl border border-base-300">
-      <div className="card-body">
-        <h2 className="card-title text-2xl mb-4">
-          <div className="badge badge-info badge-lg">
-            <Mail className="w-4 h-4 mr-1" />
-            Step 3
+    <div className="w-full max-w-4xl mx-auto">
+      {/* Header */}
+      <div className="mb-6">
+        <div className="flex items-center gap-3 mb-2">
+          <div className="flex items-center justify-center w-8 h-8 rounded-full bg-info text-info-content text-sm font-bold">
+            4
           </div>
-          Share via Email
-        </h2>
+          <h2 className="text-2xl font-bold text-base-content">
+            Share via Email
+          </h2>
+        </div>
+        <p className="text-base-content/70 ml-11">
+          Send your summary to team members and stakeholders
+        </p>
+      </div>
 
-        <div className="alert alert-info mb-4">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            className="stroke-current shrink-0 w-6 h-6"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-            ></path>
-          </svg>
-          <span>Send your AI-generated summary to team members instantly</span>
+      {/* Content */}
+      <div className="bg-base-100 rounded-lg border border-base-300 p-6 space-y-6">
+        {/* Email Subject */}
+        <div>
+          <label className="block text-sm font-medium text-base-content mb-3">
+            <MessageSquare className="w-4 h-4 inline mr-2" />
+            Email Subject
+          </label>
+          <input
+            type="text"
+            value={subject}
+            onChange={e => setSubject(e.target.value)}
+            className="input input-bordered w-full focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+            placeholder="Meeting Summary - [Date]"
+          />
         </div>
 
-        <div className="grid grid-cols-1 gap-4 mb-6">
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text font-semibold flex items-center gap-2">
-                <MessageSquare className="w-4 h-4" />
-                Email Subject
-              </span>
-            </label>
-            <input
-              type="text"
-              className="input input-bordered input-lg"
-              value={subject}
-              onChange={e => onSubjectChange(e.target.value)}
-              placeholder="Meeting Summary - [Date]"
-            />
-          </div>
-
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text font-semibold flex items-center gap-2">
-                <Users className="w-4 h-4" />
-                Recipients
-              </span>
-              {emailCount > 0 && (
-                <span className="label-text-alt">
-                  <div className="badge badge-primary badge-sm">
-                    {emailCount} recipient{emailCount > 1 ? 's' : ''}
-                  </div>
-                </span>
-              )}
-            </label>
-            <input
-              type="text"
-              className="input input-bordered input-lg"
-              value={recipients}
-              onChange={e => onRecipientsChange(e.target.value)}
-              placeholder="john@company.com, sarah@company.com, team@company.com"
-            />
-            <label className="label">
-              <span className="label-text-alt">
-                Separate multiple emails with commas
-              </span>
-            </label>
+        {/* Recipients */}
+        <div>
+          <label className="block text-sm font-medium text-base-content mb-3">
+            <Users className="w-4 h-4 inline mr-2" />
+            Recipients ({emailCount}{' '}
+            {emailCount === 1 ? 'recipient' : 'recipients'})
+          </label>
+          <input
+            type="text"
+            value={recipients}
+            onChange={e => setRecipients(e.target.value)}
+            className="input input-bordered w-full focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+            placeholder="john@company.com, sarah@company.com, team@company.com"
+          />
+          <div className="text-xs text-base-content/70 mt-2">
+            Separate multiple emails with commas
           </div>
         </div>
 
-        <div className="mockup-window border bg-base-300 mb-4">
-          <div className="flex justify-center px-4 py-16 bg-base-200">
-            <div className="text-center">
-              <h3 className="font-bold text-lg">Email Preview</h3>
-              <p className="text-sm text-base-content/70 mt-2">
-                Subject: {subject || 'Meeting Summary'}
-              </p>
-              <p className="text-sm text-base-content/70">
-                To: {recipients || 'Recipients will appear here'}
-              </p>
-              <div className="badge badge-outline mt-2">
-                Summary: {summary.split(' ').length} words
-              </div>
+        {/* Email Preview */}
+        <div className="p-4 bg-base-200 rounded-lg">
+          <h4 className="font-medium text-base-content mb-2">Email Preview</h4>
+          <div className="text-sm text-base-content/70 space-y-1">
+            <div>
+              <strong>Subject:</strong> {subject || 'Meeting Summary'}
+            </div>
+            <div>
+              <strong>To:</strong> {recipients || 'Recipients will appear here'}
+            </div>
+            <div>
+              <strong>Content:</strong> {summary.split(' ').length} words
+              summary
             </div>
           </div>
         </div>
 
-        <div className="card-actions justify-end">
+        {/* Send Button */}
+        <div className="pt-4 border-t border-base-300">
           <button
-            className={`btn btn-success btn-lg ${
-              isSending ? 'btn-disabled' : ''
-            }`}
-            onClick={onSendEmail}
+            onClick={handleSendEmail}
             disabled={!summary.trim() || !recipients.trim() || isSending}
+            className={`btn btn-success btn-lg w-full ${
+              isSending ? 'btn-ghost' : ''
+            }`}
           >
             {isSending ? (
               <>
-                <Loader2 className="w-5 h-5 animate-spin" />
-                <span className="loading loading-dots loading-sm"></span>
-                Sending...
+                <span className="loading loading-spinner loading-lg">
+                  Sending Email...
+                </span>
               </>
             ) : (
               <>
                 <Send className="w-5 h-5" />
-                Send Email to {emailCount || '?'} Recipient
+                Send to {emailCount || '?'} Recipient
                 {emailCount !== 1 ? 's' : ''}
               </>
             )}
           </button>
-        </div>
 
-        {(!recipients || emailCount === 0) && (
-          <div className="alert alert-warning mt-4">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="stroke-current shrink-0 h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.996-.833-2.766 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"
-              />
-            </svg>
-            <span>Please enter at least one recipient email address</span>
-          </div>
-        )}
+          {(!recipients || emailCount === 0) && (
+            <p className="text-center text-sm text-base-content/50 mt-2">
+              Enter recipient email addresses to send
+            </p>
+          )}
+        </div>
       </div>
     </div>
   );

@@ -23,6 +23,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api/summarize', require('./routes/summarize'));
 app.use('/api/send-email', require('./routes/sendEmail'));
 
+// Serve static files from root dist folder
+app.use(express.static(path.join(__dirname, '../dist')));
+
 // Health check
 app.get('/api/health', (req, res) => {
   res.json({
@@ -40,9 +43,9 @@ app.use((err, req, res, next) => {
   });
 });
 
-// 404 handler
-app.use('*', (req, res) => {
-  res.status(404).json({ error: 'Route not found' });
+// Serve React app for all non-API routes (SPA routing)
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../dist/index.html'));
 });
 
 app.listen(PORT, () => {

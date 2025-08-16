@@ -32,30 +32,30 @@ const ConnectionStatus = () => {
 
   if (isConnected === null) {
     return (
-      <div className="flex items-center gap-2 text-sm text-base-content/70">
-        <Server className="w-4 h-4 animate-pulse" />
-        <span>Checking connection...</span>
+      <div className="flex items-center gap-2 text-xs text-white/70">
+        <Server className="w-3 h-3 animate-pulse" />
+        <span>Checking...</span>
       </div>
     );
   }
 
   return (
-    <div className="flex items-center gap-2 text-sm">
+    <div className="flex items-center gap-2 text-xs">
       {isConnected ? (
         <>
-          <Wifi className="w-4 h-4 text-success" />
-          <span className="text-success">Backend Connected</span>
+          <Wifi className="w-3 h-3 text-green-300" />
+          <span className="text-white/90">Connected</span>
         </>
       ) : (
         <>
-          <WifiOff className="w-4 h-4 text-error" />
-          <span className="text-error">Backend Disconnected</span>
+          <WifiOff className="w-3 h-3 text-red-300" />
+          <span className="text-red-200">Offline</span>
           <button
-            className="btn btn-xs btn-ghost"
+            className="btn btn-xs btn-ghost text-white/70 hover:text-white"
             onClick={checkConnection}
             disabled={isChecking}
           >
-            {isChecking ? 'Checking...' : 'Retry'}
+            {isChecking ? '...' : 'Retry'}
           </button>
         </>
       )}
