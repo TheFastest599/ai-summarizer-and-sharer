@@ -49,12 +49,20 @@ const Footer = () => {
           <div className="text-center md:text-right">
             <h4 className="font-semibold mb-3 text-base-content">Connect</h4>
             <div className="flex justify-center md:justify-end gap-3">
-              <button className="btn btn-ghost btn-sm btn-circle">
+              <a
+                href="https://github.com/TheFastest599"
+                target="_blank"
+                className="btn btn-ghost btn-sm btn-circle"
+              >
                 <Github className="w-4 h-4" />
-              </button>
-              <button className="btn btn-ghost btn-sm btn-circle">
+              </a>
+              <a
+                href="https://twitter.com/TheFastest599?t=H4qU5U8gNTFAC535YR2nJQ&s=09"
+                target="_blank"
+                className="btn btn-ghost btn-sm btn-circle"
+              >
                 <Twitter className="w-4 h-4" />
-              </button>
+              </a>
             </div>
           </div>
         </div>
@@ -67,11 +75,11 @@ const Footer = () => {
           <div className="flex items-center gap-2 text-sm">
             <span>Made with</span>
             <Heart className="w-4 h-4 text-red-500 animate-pulse" />
-            <span>using modern web technologies</span>
+            <span>by Anirban Saha</span>
           </div>
 
           <div className="text-xs text-base-content/60">
-            <p>&copy; 2024 AI Meeting Summarizer. All rights reserved.</p>
+            <p>&copy; 2025 AI Meeting Summarizer. All rights reserved.</p>
           </div>
         </div>
       </div>

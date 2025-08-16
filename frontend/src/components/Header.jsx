@@ -11,17 +11,16 @@ const Header = () => {
         <div className="flex items-center justify-between w-full">
           {/* Logo and Title - Left Side */}
           <div className="flex items-center gap-3">
-            <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-primary/10 border border-primary/20">
-              <Bot className="w-5 h-5 text-primary" />
+            <div className="avatar">
+              <div className="w-15 md:w-20 rounded-lg">
+                <img src="/icon.jpg" />
+              </div>
             </div>
             <div className="flex flex-col">
               <div className="flex items-center gap-2">
                 <h1 className="text-lg md:text-xl font-bold text-base-content">
                   AI Summarizer
                 </h1>
-                <div className="badge badge-primary badge-xs">
-                  <Sparkles className="w-2 h-2" />
-                </div>
               </div>
               <div className="hidden sm:flex items-center gap-2 text-xs text-base-content/60">
                 <span>Meeting notes made simple</span>
