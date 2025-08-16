@@ -1,0 +1,31 @@
+{
+  "name": "ai-meeting-summarizer",
+  "version": "1.0.0",
+  "description": "AI Meeting Notes Summarizer & Sharer with Groq AI and Resend",
+  "main": "index.js",
+  "scripts": {
+    "install:frontend": "cd frontend && npm install",
+    "install:backend": "cd backend && npm install",
+    "install": "npm run install:frontend && npm run install:backend",
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev:backend": "cd backend && npm run dev",
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "build:frontend": "cd frontend && npm run build",
+    "start:backend": "cd backend && npm start",
+    "start": "npm run start:backend"
+  },
+  "keywords": [
+    "ai",
+    "meeting",
+    "summarizer",
+    "groq",
+    "resend",
+    "react",
+    "express"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
