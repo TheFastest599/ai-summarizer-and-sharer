@@ -15,3 +15,6 @@ npm run build:frontend
 
 echo "✅ Deployment complete! Ready to start the server."
 echo "💡 Run 'npm start' to start the backend server."
+
+
+npm run start
