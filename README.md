@@ -4,6 +4,10 @@ A modern web application that transforms meeting transcripts into AI-powered sum
 
 🌐 **Live Demo:** [http://ai-summarizer.crabdance.com](http://ai-summarizer.crabdance.com) or [http://67.220.85.157:6216](http://67.220.85.157:6216)
 
+![Screenshot 1](/assets/screenshot1.png)
+![Screenshot 2](/assets/screenshot2.png)
+![Screenshot 3](/assets/screenshot3.png)
+
 ## Features
 
 - 📄 **Upload or paste** meeting transcripts
