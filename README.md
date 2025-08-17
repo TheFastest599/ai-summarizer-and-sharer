@@ -2,7 +2,7 @@
 
 A modern web application that transforms meeting transcripts into AI-powered summaries and shares them via email.
 
-🌐 **Live Demo:** [http://67.220.85.157:6216](http://67.220.85.157:6216)
+🌐 **Live Demo:** [http://ai-summarizer.crabdance.com](http://ai-summarizer.crabdance.com) or [http://67.220.85.157:6216](http://67.220.85.157:6216)
 
 ## Features
 
