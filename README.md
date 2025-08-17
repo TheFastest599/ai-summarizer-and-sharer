@@ -8,6 +8,8 @@ A modern web application that transforms meeting transcripts into AI-powered sum
 ![Screenshot 2](/assets/screenshot2.png)
 ![Screenshot 3](/assets/screenshot3.png)
 
+**Document details** [EXPLAINATION.md](/EXPLAINATION.md)
+
 ## Features
 
 - 📄 **Upload or paste** meeting transcripts
